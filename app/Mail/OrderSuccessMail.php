@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewOrderMail extends Mailable
+class OrderSuccessMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class NewOrderMail extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'SuperFreighters')
-            ->subject('New Order')
+            ->subject('Order Successful')
             ->view('mail.template', ['data' => $this->data]);
     }
 }

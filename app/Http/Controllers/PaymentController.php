@@ -27,6 +27,11 @@ class PaymentController extends Controller
         $payment['reference'] = $request['reference'];
         $payment['status'] = 'success';
         if ($payment->save()){
+            try {
+                MailController::sendNewOrderMail();
+            }catch (\Exception $exception){
+
+            }
             return view('orders.success');
         }
         return back()->with(['error' => 'Something went wrong']);

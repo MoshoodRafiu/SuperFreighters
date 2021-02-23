@@ -124,7 +124,7 @@
         function payWithPaystack() {
             let handler = PaystackPop.setup({
                 key: '{{ env('PAYSTACK_KEY') }}', // Replace with your public key
-                email: 'rafiumoshoodolakunle@gmail.com',
+                email: '{{ env('USER_EMAIL') }}',
                 amount: {{ $order['amount'] * 100 }},
                 ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 // label: "Optional string that replaces customer email"
