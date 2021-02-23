@@ -10,7 +10,7 @@
 <body>
 <p>Hello,</p>
 <p>{{ $data['message'] }}</p>
-<p><a href="#">click here</a> for more details</p>
+<p><a href="https://superfreightersapp.herokuapp.com/orders">click here</a> for more details</p>
 <p>Regards,</p>
 <p>{{ env('APP_NAME') }} Team</p>
 </body>
