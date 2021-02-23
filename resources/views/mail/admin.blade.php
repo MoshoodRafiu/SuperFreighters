@@ -13,11 +13,11 @@
 <p>Order ID is {{ $data['order']['orderID'] }}, items in your order are listed below</p>
 <ul>
     @foreach($data['items'] as $item)
-        <li>{{ $item['description'] }} ( {{ $item['weight'] }} )</li>
+        <li>{{ $item['description'] }} ( {{ $item['weight'] }}Kg)</li>
     @endforeach
 </ul>
-<p>Total amount paid is {{ $data['order']['amount'] }} and payment reference is {{ $data['payment']['reference'] }}</p>
-<p>The order should be picked up on {{ $data['order']['pickUpDate'] }} delivered to {{ $data['order']['deliveryAddress'] }} on {{ $data['order']['deliveryDate'] }} by {{ $data['order']['modeOfDelivery'] }}.</p>
+<p>Total amount paid is {{ number_format($data['order']['amount']) }} and payment reference is {{ $data['payment']['reference'] }}</p>
+<p>The order should be picked up on {{ $data['order']['pickUpDate'] }} and delivered to {{ $data['order']['deliveryAddress'] }} on {{ $data['order']['deliveryDate'] }} by {{ $data['order']['modeOfDelivery'] }}.</p>
 <p><a href="https://superfreightersapp.herokuapp.com/orders">click here</a> for more details</p>
 </body>
 </html>

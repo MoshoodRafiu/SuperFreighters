@@ -13,7 +13,9 @@ class MailController extends Controller
     {
         $data = [
             'message' => 'There is a new order on SuperFreighters',
-            'order' => $order
+            'order' => $order,
+            'items' => $order->items,
+            'payment' => $order->payment
         ];
         Mail::to(env('ADMIN_EMAIL'))->send(new NewOrderMail($data));
     }
