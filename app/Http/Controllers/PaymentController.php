@@ -27,13 +27,32 @@ class PaymentController extends Controller
         $payment['reference'] = $request['reference'];
         $payment['status'] = 'success';
         if ($payment->save()){
-            try {
-                MailController::sendNewOrderMail();
-            }catch (\Exception $exception){
-
-            }
+            $this->sendMailToCustomer();
+            $this->sendMailToAdmin();
             return view('orders.success');
         }
         return back()->with(['error' => 'Something went wrong']);
+    }
+    protected function sendMailToCustomer(): bool
+    {
+        $success = true;
+        try {
+            MailController::sendNewOrderMail();
+        }catch (\Exception $exception){
+            report($exception);
+            $success = false;
+        }
+        return $success;
+    }
+    protected function sendMailToAdmin(): bool
+    {
+        $success = true;
+        try {
+            MailController::sendOrderSuccessMail();
+        }catch (\Exception $exception){
+            report($exception);
+            $success = false;
+        }
+        return $success;
     }
 }

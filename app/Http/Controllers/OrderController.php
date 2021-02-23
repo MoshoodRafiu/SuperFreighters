@@ -66,7 +66,7 @@ class OrderController extends Controller
         }
         return back()->with(['error' => 'Something went wrong']);
     }
-    public function cancelOrder(Order $order)
+    public function cancelOrder(Order $order): \Illuminate\Http\RedirectResponse
     {
         $order['status'] = 'cancelled';
         if ($order->update()){
@@ -78,7 +78,7 @@ class OrderController extends Controller
     {
         return view('orders.detail', ['order' => $order]);
     }
-    protected function generateOrderID()
+    protected function generateOrderID(): int
     {
         do {
             $unique_code =  rand(11111111,99999999);
@@ -89,7 +89,8 @@ class OrderController extends Controller
     {
         return date('Y-m-d', strtotime($pickup.'+ '.$days.' days'));
     }
-    protected function saveOrderItems($order, $items){
+    protected function saveOrderItems($order, $items): bool
+    {
         $success = true;
         foreach ($items as $val){
             $item = new Item();
