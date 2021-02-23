@@ -17,13 +17,13 @@ class OrderController extends Controller
                 $orders = Order::latest()->simplePaginate(10);
                 break;
             case 'pending':
-                $orders = Order::where('status', '=', 'pending')->simplePaginate(10);
+                $orders = Order::latest()->where('status', '=', 'pending')->simplePaginate(10);
                 break;
             case 'cancelled':
-                $orders = Order::where('status', '=', 'cancelled')->simplePaginate(10);
+                $orders = Order::latest()->where('status', '=', 'cancelled')->simplePaginate(10);
                 break;
             case 'delivered':
-                $orders = Order::where('status', '=', 'delivered')->simplePaginate(10);
+                $orders = Order::latest()->where('status', '=', 'delivered')->simplePaginate(10);
                 break;
         }
         return view('orders.index', ['orders' => $orders, 'type' => $type]);
