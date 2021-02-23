@@ -31,6 +31,6 @@ class OrderSuccessMail extends Mailable
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'SuperFreighters')
             ->subject('Order Successful')
-            ->view('mail.template', ['data' => $this->data]);
+            ->view('mail.user', ['data' => $this->data]);
     }
 }

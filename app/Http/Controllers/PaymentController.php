@@ -22,33 +22,36 @@ class PaymentController extends Controller
         if ($validator->fails()){
             return back()->withErrors($validator);
         }
-        $payment = new Payment();
-        $payment['order_id'] = $request['order_id'];
-        $payment['reference'] = $request['reference'];
-        $payment['status'] = 'success';
-        if ($payment->save()){
-            $this->sendMailToCustomer();
-            $this->sendMailToAdmin();
-            return view('orders.success');
+        $order = Order::find($request['order_id']);
+        if ($order){
+            $payment = new Payment();
+            $payment['order_id'] = $order['id'];
+            $payment['reference'] = $request['reference'];
+            $payment['status'] = 'success';
+            if ($payment->save()){
+                $this->sendMailToCustomer($order);
+                $this->sendMailToAdmin($order);
+                return view('orders.success');
+            }
         }
         return back()->with(['error' => 'Something went wrong']);
     }
-    protected function sendMailToCustomer(): bool
+    protected function sendMailToCustomer($order): bool
     {
         $success = true;
         try {
-            MailController::sendNewOrderMail();
+            MailController::sendOrderSuccessMail($order);
         }catch (\Exception $exception){
             report($exception);
             $success = false;
         }
         return $success;
     }
-    protected function sendMailToAdmin(): bool
+    protected function sendMailToAdmin($order): bool
     {
         $success = true;
         try {
-            MailController::sendOrderSuccessMail();
+            MailController::sendNewOrderMail($order);
         }catch (\Exception $exception){
             report($exception);
             $success = false;

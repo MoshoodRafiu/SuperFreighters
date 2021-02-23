@@ -31,6 +31,6 @@ class NewOrderMail extends Mailable
     {
         return $this->from(env('MAIL_FROM_ADDRESS'), 'SuperFreighters')
             ->subject('New Order')
-            ->view('mail.template', ['data' => $this->data]);
+            ->view('mail.admin', ['data' => $this->data]);
     }
 }
